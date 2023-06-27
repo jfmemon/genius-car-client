@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import image from '../../Assets/images/login/login.svg';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const SignUp = () => {
+    const {createUser} = useContext(AuthContext);
 
     const handleSingUp = (event) => {
         event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        createUser(email, password)
+        .then(result => result.user)
+        .catch(err => console.error(err))
+        form.reset();
     }
 
     return (
@@ -36,7 +46,7 @@ const SignUp = () => {
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required/>
                         </div>
                         <div className="form-control mt-6">
-                            <input className="btn btn-primary" type="submit" value="Login" />
+                            <input className="btn btn-primary" type="submit" value="Sign Up" />
                         </div>
                         <div className='text-center py-2'>
                             <p>Already have an account? <Link to='/login' className='text-orange-600 font-bold'>Login</Link> </p>
