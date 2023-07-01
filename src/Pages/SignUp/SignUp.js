@@ -13,7 +13,10 @@ const SignUp = () => {
         const password = form.password.value;
 
         createUser(email, password)
-        .then(result => result.user)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+        })
         .catch(err => console.error(err))
         form.reset();
     }
