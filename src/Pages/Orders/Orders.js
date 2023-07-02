@@ -28,9 +28,9 @@ const Orders = () => {
                                 <input type="checkbox" className="checkbox" />
                             </label>
                         </th>
-                        <th>Name</th>
-                        <th>Job</th>
-                        <th>Favorite Color</th>
+                        <th>Service name</th>
+                        <th>Price</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
