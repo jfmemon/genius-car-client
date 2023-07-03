@@ -24,7 +24,7 @@ const OrdersList = ({ order }) => {
             <td>
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
-                        <div className="rounded w-12 h-12">
+                        <div className="rounded w-24 h-24">
                             <img src={orderService?.img} alt="Avatar Tailwind CSS Component" />
                         </div>
                     </div>
