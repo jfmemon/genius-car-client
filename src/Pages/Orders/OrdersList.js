@@ -7,7 +7,11 @@ const OrdersList = ({ order, handleDeleteOrder, handleStatusUpdate }) => {
     console.log(orderService);
     useEffect(() => {
         if (service) {
-            fetch(`http://localhost:5000/services/${service}`)
+            fetch(`http://localhost:5000/services/${service}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('genius-token')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => setOrderService(data))
                 .catch(err => console.error(err))

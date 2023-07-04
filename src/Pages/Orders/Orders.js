@@ -3,26 +3,38 @@ import OrdersList from './OrdersList';
 import { AuthContext } from './../../Contexts/AuthProvider/AuthProvider';
 
 const Orders = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/orders?email=${user.email}`)
-                .then(res => res.json())
+            fetch(`http://localhost:5000/orders?email=${user.email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('genius-token')}`
+                }
+            })
+                .then(res => {
+                    if (res.status === 401 || res.status === 4.3) {
+                        return logout();
+                    }
+                    return res.json();
+                })
                 .then(data => setOrders(data))
                 .catch(error => {
                     console.error('Error fetching orders:', error);
                     // Handle error state if necessary
                 });
         }
-    }, [user?.email]);
+    }, [user?.email, logout]);
 
     const handleDeleteOrder = id => {
         const proceed = window.confirm('Are you sure you want to delete this order?')
         if (proceed) {
             fetch(`http://localhost:5000/orders/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('genius-token')}`
+                }
             })
                 .then(res => res.json())
                 .then(data => {
@@ -40,7 +52,8 @@ const Orders = () => {
         fetch(`http://localhost:5000/orders/${id}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
             },
             body: JSON.stringify({ status: 'Approved' })
         })
