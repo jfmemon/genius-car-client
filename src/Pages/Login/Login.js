@@ -18,25 +18,25 @@ const Login = () => {
         const password = form.password.value;
 
         login(email, password)
-        .then(result => {
-            const user = result.user;
-            const currentUser = {
-                email: user.email
-            }
-            fetch('http://localhost:5000/jwt', {
-                method: 'POST',
-                headers: {
-                    'content-type' : 'application/json'
-                },
-                body: JSON.stringify(currentUser)  // body te kore jacche currentUser
+            .then(result => {
+                const user = result.user;
+                const currentUser = {
+                    email: user.email
+                }
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)  // body te kore jacche currentUser
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('genius-token', data.token)  // server theke ashteche token
+                        navigate(from, { replace: true });
+                    })
             })
-            .then(res => res.json())
-            .then(data => {
-                localStorage.setItem('genius-token', data.token)  // server theke ashteche token
-            })
-            navigate(from, {replace: true})
-        })
-        .catch(err => console.error(err))
+            .catch(err => console.error(err))
         form.reset();
     }
 
