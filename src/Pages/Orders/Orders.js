@@ -8,7 +8,7 @@ const Orders = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/orders?email=${user.email}`, {
+            fetch(`https://genius-car-server-delta-one.vercel.app/orders?email=${user.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('genius-token')}`
                 }
@@ -30,7 +30,7 @@ const Orders = () => {
     const handleDeleteOrder = id => {
         const proceed = window.confirm('Are you sure you want to delete this order?')
         if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://genius-car-server-delta-one.vercel.app/orders/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('genius-token')}`
@@ -49,7 +49,7 @@ const Orders = () => {
     }
 
     const handleStatusUpdate = id => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://genius-car-server-delta-one.vercel.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

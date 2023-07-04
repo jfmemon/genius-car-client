@@ -7,7 +7,7 @@ const OrdersList = ({ order, handleDeleteOrder, handleStatusUpdate }) => {
     console.log(orderService);
     useEffect(() => {
         if (service) {
-            fetch(`http://localhost:5000/services/${service}`, {
+            fetch(`https://genius-car-server-delta-one.vercel.app/services/${service}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('genius-token')}`
                 }
